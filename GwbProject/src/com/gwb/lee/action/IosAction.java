@@ -50,7 +50,7 @@ public class IosAction extends BaseAction {
 		try {
 			if ("listCategory".equals(type)) {
 				rs = listCategory(request, response);
-				log(request,response,ConstantParams.LOG_LOGIN);
+				//log(request,response,ConstantParams.LOG_LOGIN);
 			} else if ("listClass".equals(type)) {
 				rs = listClass(request, response);
 			} else if ("listBook".equals(type)) {

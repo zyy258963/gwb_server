@@ -75,7 +75,59 @@ public class AndroidDao implements AndroidService {
 		}
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> appLogin(String telephone, String macAddress) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = null;
+		String sql = "select * from users where telephone=?  ";
+		List<Object> params = new ArrayList<Object>();
+		params.add(telephone);
+		try {
+			jdbcUtils.getConnection();
+			map = jdbcUtils.findSimpleResult(sql, params);
+			// 登陆成功 则将mac地址插入数据库中
+			if (!map.isEmpty()) {
+//				如果 该手机号的 mac地址不为空并且与请求参数一致，返回正确
+				if (map.get("macAddress") != null
+						&& !"".equals(map.get("macAddress")) && map.get("macAddress").equals(macAddress)) {
+					return map;
+				} else if("0".equals(map.get("macAddress"))){
+					String updateSql = " update users set macAddress=? where userId=?";
+					List<Object> para = new ArrayList<Object>();
+					para.add(macAddress);
+					para.add(map.get("userId"));
 
+					boolean flag = jdbcUtils.updateByPreparedStatement(
+							updateSql, para);
+
+					if (!flag) {
+						map.clear();
+						map.put("msg", "updateerror");
+						return map;
+					} else {
+						map.put("macAddress", macAddress);
+						return map;
+					}
+				}else {
+					map.clear();
+					map.put("msg", "nomatch");
+					return map;
+				}
+			}else {
+//				手机号为空，表明没有交费
+				map = new HashMap<String, Object>();
+				map.put("msg", "notelephone");
+				return map;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			jdbcUtils.releaseConn();
+		}
+		return null;
+	}
 	@Override
 	public Users editUser(String userid, Map<String, Object> paramMap) {
 		StringBuffer sqlBuffer = new StringBuffer("update users u set  ");
@@ -538,52 +590,52 @@ public class AndroidDao implements AndroidService {
 		return ConstantParams.STATUS_FILTER_ERROR;
 	}
 
-	@Override
-	public Map<String, Object> appLogin(String telephone, String macAddress) {
-		// TODO Auto-generated method stub
-		Map<String, Object> map = null;
-		String sql = "select * from users where isAvailable=1 and telephone=?  ";
-		List<Object> params = new ArrayList<Object>();
-		params.add(telephone);
-		try {
-			jdbcUtils.getConnection();
-			map = jdbcUtils.findSimpleResult(sql, params);
-			// 登陆成功 则将mac地址插入数据库中
-			if (!map.isEmpty()) {
-//				如果 该手机号的 mac地址不为空并且与请求参数一致，返回正确
-				if (map.get("macAddress") != null
-						&& !"".equals(map.get("macAddress")) && map.get("macAddress").equals(macAddress)) {
-					return map;
-				} else if("0".equals(map.get("macAddress"))){
-					String updateSql = " update users set macAddress=? where userId=?";
-					List<Object> para = new ArrayList<Object>();
-					para.add(macAddress);
-					para.add(map.get("userId"));
-
-					boolean flag = jdbcUtils.updateByPreparedStatement(
-							updateSql, para);
-
-					if (!flag) {
-						return null;
-					} else {
-						map.put("macAddress", macAddress);
-						return map;
-					}
-				}else {
-					return null;
-				}
-			}else {
-//				手机号为空，表明没有交费
-				return null;
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		} finally {
-			jdbcUtils.releaseConn();
-		}
-		return null;
-	}
+//	@Override
+//	public Map<String, Object> appLogin(String telephone, String macAddress) {
+//		// TODO Auto-generated method stub
+//		Map<String, Object> map = null;
+//		String sql = "select * from users where isAvailable=1 and telephone=?  ";
+//		List<Object> params = new ArrayList<Object>();
+//		params.add(telephone);
+//		try {
+//			jdbcUtils.getConnection();
+//			map = jdbcUtils.findSimpleResult(sql, params);
+//			// 登陆成功 则将mac地址插入数据库中
+//			if (!map.isEmpty()) {
+////				如果 该手机号的 mac地址不为空并且与请求参数一致，返回正确
+//				if (map.get("macAddress") != null
+//						&& !"".equals(map.get("macAddress")) && map.get("macAddress").equals(macAddress)) {
+//					return map;
+//				} else if("0".equals(map.get("macAddress"))){
+//					String updateSql = " update users set macAddress=? where userId=?";
+//					List<Object> para = new ArrayList<Object>();
+//					para.add(macAddress);
+//					para.add(map.get("userId"));
+//
+//					boolean flag = jdbcUtils.updateByPreparedStatement(
+//							updateSql, para);
+//
+//					if (!flag) {
+//						return null;
+//					} else {
+//						map.put("macAddress", macAddress);
+//						return map;
+//					}
+//				}else {
+//					return null;
+//				}
+//			}else {
+////				手机号为空，表明没有交费
+//				return null;
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		} finally {
+//			jdbcUtils.releaseConn();
+//		}
+//		return null;
+//	}
 
 	@Override
 	public void log(String telephone, String logType, String logInfo) {

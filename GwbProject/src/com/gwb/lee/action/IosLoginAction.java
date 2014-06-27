@@ -49,8 +49,8 @@ public class IosLoginAction extends BaseAction {
 
 		try {
 			if ("appLogin".equals(type)) {
-//				log(request,response,ConstantParams.LOG_LOGIN);
 				rs = appLogin(request, response);
+				log(request,response,ConstantParams.LOG_LOGIN);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,7 +62,19 @@ public class IosLoginAction extends BaseAction {
 		out.close();
 	}
 
-
+	private void log(HttpServletRequest request, HttpServletResponse response,
+			String logType) throws Exception{
+		String telephone = request.getParameter("telephone");
+		
+		if (ConstantParams.LOG_SEARCH.equals(logType)) {
+			String keywords = request.getParameter("keywords");
+			String temp = new String(keywords.getBytes("ISO-8859-1"),"UTF-8");
+			iosService.log(telephone,ConstantParams.LOG_SEARCH,temp);
+		}else if (ConstantParams.LOG_LOGIN.equals(logType)) {
+			iosService.log(telephone,ConstantParams.LOG_LOGIN,"");
+		}
+		
+	}
 	
 	private String appLogin(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -82,5 +94,24 @@ public class IosLoginAction extends BaseAction {
 					ConstantParams.HTTP_STATUS_HEADER_FAIL, temp);
 		}
 	}
+	
+//	private String appLoginTest(HttpServletRequest request,
+//			HttpServletResponse response) throws Exception {
+//		String telephone = request.getParameter("telephone");
+////		String password = request.getParameter("password");
+//		String macAddress = request.getParameter("macAddress");
+//
+//		Map<String, Object> map = iosService.appLogin(telephone, macAddress);
+//
+//		if (map != null && !map.isEmpty()) {
+//			return FastJsonUtil.getResultMapJson(
+//					ConstantParams.HTTP_STATUS_HEADER_SUCCESS, map);
+//		} else {
+//			Map<String, Object> temp = new HashMap<String, Object>();
+//			temp.put("msg", "服务器出错,请联系管理员!");
+//			return FastJsonUtil.getResultMapJson(
+//					ConstantParams.HTTP_STATUS_HEADER_FAIL, temp);
+//		}
+//	}
 
 }

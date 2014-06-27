@@ -53,6 +53,7 @@ public interface IosService {
 	List<Ad> listAd(String adPosition);
 
 	Map<String, Object> appLogin(String telephone, String macAddress);
+//	Map<String, Object> appLoginTest(String telephone, String macAddress);
 
 	void log(String userId, String logSearch, String keywords);
 

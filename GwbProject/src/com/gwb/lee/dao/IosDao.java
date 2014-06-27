@@ -69,6 +69,54 @@ public class IosDao implements IosService {
 		return map;
 	}
 
+//	@Override
+//	public Map<String, Object> appLogin(String telephone, String macAddress) {
+//		// TODO Auto-generated method stub
+//		Map<String, Object> map = null;
+//		String sql = "select * from users where telephone=?  ";
+//		List<Object> params = new ArrayList<Object>();
+//		params.add(telephone);
+//		try {
+//			jdbcUtils.getConnection();
+//			map = jdbcUtils.findSimpleResult(sql, params);
+//			// 登陆成功 则将mac地址插入数据库中
+//			if (!map.isEmpty()) {
+////				如果 该手机号的 mac地址不为空并且与请求参数一致，返回正确
+//				if (map.get("macAddress") != null
+//						&& !"".equals(map.get("macAddress")) && map.get("macAddress").equals(macAddress)) {
+//					return map;
+//				} else if("0".equals(map.get("macAddress"))){
+//					String updateSql = " update users set macAddress=? where userId=?";
+//					List<Object> para = new ArrayList<Object>();
+//					para.add(macAddress);
+//					para.add(map.get("userId"));
+//
+//					boolean flag = jdbcUtils.updateByPreparedStatement(
+//							updateSql, para);
+//
+//					if (!flag) {
+//						return null;
+//					} else {
+//						map.put("macAddress", macAddress);
+//						return map;
+//					}
+//				}else {
+//					return null;
+//				}
+//			}else {
+////				手机号为空，表明没有交费
+//				return null;
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		} finally {
+//			jdbcUtils.releaseConn();
+//		}
+//		return null;
+//	}
+	
+	
 	@Override
 	public Map<String, Object> appLogin(String telephone, String macAddress) {
 		// TODO Auto-generated method stub
