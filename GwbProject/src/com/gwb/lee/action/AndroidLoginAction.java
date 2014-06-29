@@ -101,7 +101,7 @@ public class AndroidLoginAction extends BaseAction {
 					ConstantParams.HTTP_STATUS_HEADER_SUCCESS, map);
 		} else {
 			Map<String, Object> temp = new HashMap<String, Object>();
-			temp.put("msg", "账号不匹配或服务器出错!");
+			temp.put("msg", "服务器出错,请联系管理员!");
 			return FastJsonUtil.getResultMapJson(
 					ConstantParams.HTTP_STATUS_HEADER_FAIL, temp);
 		}
