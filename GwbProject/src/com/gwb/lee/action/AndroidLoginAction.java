@@ -57,7 +57,7 @@ public class AndroidLoginAction extends BaseAction {
 		String rs = null;
 		try {
 			if ("appLogin".equals(type)) {
-				log(request,response,ConstantParams.LOG_LOGIN);
+				//log(request,response,ConstantParams.LOG_LOGIN);
 				rs = appLogin(request, response);
 			} else if ("logout".equals(type)) {
 //				rs = logout(request, response);
@@ -97,6 +97,9 @@ public class AndroidLoginAction extends BaseAction {
 		Map<String, Object> map = androidService.appLogin(telephone, macAddress);
 
 		if (map != null && !map.isEmpty()) {
+			if (map.get("msg")==null || "".equals(map.get("msg"))) {
+				log(request,response,ConstantParams.LOG_LOGIN);
+			}
 			return FastJsonUtil.getResultMapJson(
 					ConstantParams.HTTP_STATUS_HEADER_SUCCESS, map);
 		} else {
