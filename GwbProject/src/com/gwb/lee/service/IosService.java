@@ -29,12 +29,14 @@ public interface IosService {
 
 	List<Map<String, String>> getBookMap(String classId);
 
-	List<Books> listBook(String classId,
-			String keywords, int start, int end);
+//	List<Books> listBook(String classId,
+//			String keywords, String start, String end);
+
+//	List<Books> listBook(String classId,String start, String end);
 
 	List<Books> listBook(String classId);
 
-	List<Books> searchBook(String keywords, int start, int end);
+//	List<Books> searchBook(String keywords, String start, String end);
 
 	List<Books> searchBook(String keywords);
 
@@ -56,6 +58,10 @@ public interface IosService {
 //	Map<String, Object> appLoginTest(String telephone, String macAddress);
 
 	void log(String userId, String logSearch, String keywords);
+
+	List<Books> listBookLimit(String classId, String start, String num);
+
+	List<Books> searchBookLimit(String temp, String start, String num);
 
 
 	

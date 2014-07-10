@@ -383,8 +383,8 @@ public class IosDao implements IosService {
 	}
 
 	@Override
-	public List<Books> listBook(String classId, String keywords, int start,
-			int end) {
+	public List<Books> listBookLimit(String classId, String start,
+			String num) {
 		List<Books> list = new ArrayList<Books>();
 		String sql = "select b.*,bc.categoryName,bcls.className from books b,bookcategory bc,bookclass bcls where"
 				+ " b.categoryId=bc.categoryId and b.classId=bcls.classId ";
@@ -395,13 +395,26 @@ public class IosDao implements IosService {
 			buffer.append(" and b.classId=? ");
 			params.add(Integer.parseInt(classId));
 		}
-		if (keywords != null && !"".equals(keywords)) {
-			buffer.append(" and b.bookName like ? ");
-			params.add("%" + keywords + "%");
-		}
+		
 		buffer.append(" order by b.categoryId,b.classId,b.bookId limit ?,? ");
-		params.add(start);
-		params.add(end);
+		if(start!=null && !"".equals(start)){
+			try {
+				params.add(Integer.parseInt(start)>=0?Integer.parseInt(start):0);
+			} catch (Exception e) {
+				params.add(0);
+			}
+		}else {
+			params.add(0);
+		}
+		if(num!=null && !"".equals(num)){
+			try {
+				params.add(Integer.parseInt(num)>0?Integer.parseInt(num):10);
+			} catch (Exception e) {
+				params.add(10);
+			}
+		}else {
+			params.add(10);
+		}
 		try {
 			jdbcUtils.getConnection();
 			list = jdbcUtils.findMoreRefResult(buffer.toString(), params,
@@ -413,7 +426,7 @@ public class IosDao implements IosService {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<Books> listBook(String classId) {
 		List<Books> list = new ArrayList<Books>();
@@ -439,32 +452,6 @@ public class IosDao implements IosService {
 		return list;
 	}
 
-	@Override
-	public List<Books> searchBook(String keywords, int start, int end) {
-		List<Books> list = new ArrayList<Books>();
-		String sql = "select b.*,bc.categoryName,bcls.className from books b,bookcategory bc,bookclass bcls where"
-				+ " b.categoryId=bc.categoryId and b.classId=bcls.classId ";
-		// limit ?,
-		StringBuffer buffer = new StringBuffer(sql);
-		List<Object> params = new ArrayList<Object>();
-		if (keywords != null && !"".equals(keywords)) {
-			buffer.append(" and b.bookName like ? ");
-			params.add("%" + keywords + "%");
-		}
-		buffer.append(" order by b.categoryId,b.classId,b.bookId limit ?,? ");
-		params.add(start);
-		params.add(end);
-		try {
-			jdbcUtils.getConnection();
-			list = jdbcUtils.findMoreRefResult(buffer.toString(), params,
-					Books.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			jdbcUtils.releaseConn();
-		}
-		return list;
-	}
 
 	@Override
 	public List<Books> searchBook(String keywords) {
@@ -479,6 +466,49 @@ public class IosDao implements IosService {
 			params.add("%" + keywords + "%");
 		}
 		buffer.append(" order by b.categoryId,b.classId,b.bookId ");
+		try {
+			jdbcUtils.getConnection();
+			list = jdbcUtils.findMoreRefResult(buffer.toString(), params,
+					Books.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			jdbcUtils.releaseConn();
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Books> searchBookLimit(String keywords, String start, String num) {
+		List<Books> list = new ArrayList<Books>();
+		String sql = "select b.*,bc.categoryName,bcls.className from books b,bookcategory bc,bookclass bcls where"
+				+ " b.categoryId=bc.categoryId and b.classId=bcls.classId ";
+		// limit ?,
+		StringBuffer buffer = new StringBuffer(sql);
+		List<Object> params = new ArrayList<Object>();
+		if (keywords != null && !"".equals(keywords)) {
+			buffer.append(" and b.bookName like ? ");
+			params.add("%" + keywords + "%");
+		}
+		buffer.append(" order by b.categoryId,b.classId,b.bookId limit ?,? ");
+		if(start!=null && !"".equals(start)){
+			try {
+				params.add(Integer.parseInt(start)>=0?Integer.parseInt(start):0);
+			} catch (Exception e) {
+				params.add(0);
+			}
+		}else {
+			params.add(0);
+		}
+		if(num!=null && !"".equals(num)){
+			try {
+				params.add(Integer.parseInt(num)>0?Integer.parseInt(num):10);
+			} catch (Exception e) {
+				params.add(10);
+			}
+		}else {
+			params.add(10);
+		}
 		try {
 			jdbcUtils.getConnection();
 			list = jdbcUtils.findMoreRefResult(buffer.toString(), params,

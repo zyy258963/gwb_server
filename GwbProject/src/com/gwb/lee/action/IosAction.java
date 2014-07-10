@@ -58,6 +58,11 @@ public class IosAction extends BaseAction {
 			} else if ("searchBook".equals(type)) {
 				rs = searchBook(request, response);
 				log(request,response,ConstantParams.LOG_SEARCH);
+			} else if ("listBookLimit".equals(type)) {
+				rs = listBookLimit(request, response);
+			} else if ("searchBookLimit".equals(type)) {
+				rs = searchBookLimit(request, response);
+				log(request,response,ConstantParams.LOG_SEARCH);
 			} else if ("addFavourite".equals(type)) {
 				rs = addFavourite(request, response);
 			} else if ("deleteFavourite".equals(type)) {
@@ -149,6 +154,46 @@ public class IosAction extends BaseAction {
 		}
 	}
 
+	private String searchBookLimit(HttpServletRequest request,
+			HttpServletResponse response) {
+		String keywords = request.getParameter("keywords");
+		String start = request.getParameter("start");
+		String num = request.getParameter("num");
+		List<Books> list = null;
+		try {
+			String temp = new String(keywords.getBytes("ISO-8859-1"),"UTF-8");
+			System.out.println(temp);
+			list = iosService.searchBookLimit(temp,start,num);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if (list != null) {
+			return FastJsonUtil.getResultListJson(
+					ConstantParams.HTTP_STATUS_HEADER_SUCCESS, list);
+		} else {
+			return FastJsonUtil.getResultListJson(
+					ConstantParams.HTTP_STATUS_HEADER_FAIL, null);
+		}
+	}
+
+	private String listBookLimit(HttpServletRequest request,
+			HttpServletResponse response) {
+		String classId = request.getParameter("classId");
+		String start = request.getParameter("start");
+		String num = request.getParameter("num");
+		List<Books> list = iosService.listBookLimit(classId,start,num);
+
+		if (list != null) {
+			return FastJsonUtil.getResultListJson(
+					ConstantParams.HTTP_STATUS_HEADER_SUCCESS, list);
+		} else {
+			return FastJsonUtil.getResultListJson(
+					ConstantParams.HTTP_STATUS_HEADER_FAIL, null);
+		}
+	}
+	
 	private String searchBook(HttpServletRequest request,
 			HttpServletResponse response) {
 		String keywords = request.getParameter("keywords");
