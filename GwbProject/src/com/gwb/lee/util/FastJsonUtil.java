@@ -72,5 +72,19 @@ public class FastJsonUtil {
 
 		return createJsonString(map);
 	}
+	
+	public static String getResultBookListJson(String headerStatus, Object content) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(ConstantParams.HTTP_TITLE_HEADER,
+				ConstantParams.HTTP_SUCCESS_HEADER);
+		map.put("totalCount",
+				ConstantParams.TOTAL_BOOK_NUM);
+		map.put("totalPage",
+				ConstantParams.TOTAL_PAGE_NUM);
+		// 构造 content
+		map.put(ConstantParams.HTTP_TITLE_CONTENT, content);
+
+		return createJsonString(map);
+	}
 
 }

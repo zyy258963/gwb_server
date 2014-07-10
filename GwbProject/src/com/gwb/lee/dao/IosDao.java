@@ -42,7 +42,8 @@ public class IosDao implements IosService {
 			// 登陆成功 则将mac地址插入数据库中
 			if (!map.isEmpty()) {
 				if (map.get("macAddress") != null
-						&& !"".equals(map.get("macAddress")) && !"0".equals(map.get("macAddress"))) {
+						&& !"".equals(map.get("macAddress"))
+						&& !"0".equals(map.get("macAddress"))) {
 
 				} else {
 					String updateSql = " update users set macAddress=? where userId=?";
@@ -69,54 +70,55 @@ public class IosDao implements IosService {
 		return map;
 	}
 
-//	@Override
-//	public Map<String, Object> appLogin(String telephone, String macAddress) {
-//		// TODO Auto-generated method stub
-//		Map<String, Object> map = null;
-//		String sql = "select * from users where telephone=?  ";
-//		List<Object> params = new ArrayList<Object>();
-//		params.add(telephone);
-//		try {
-//			jdbcUtils.getConnection();
-//			map = jdbcUtils.findSimpleResult(sql, params);
-//			// 登陆成功 则将mac地址插入数据库中
-//			if (!map.isEmpty()) {
-////				如果 该手机号的 mac地址不为空并且与请求参数一致，返回正确
-//				if (map.get("macAddress") != null
-//						&& !"".equals(map.get("macAddress")) && map.get("macAddress").equals(macAddress)) {
-//					return map;
-//				} else if("0".equals(map.get("macAddress"))){
-//					String updateSql = " update users set macAddress=? where userId=?";
-//					List<Object> para = new ArrayList<Object>();
-//					para.add(macAddress);
-//					para.add(map.get("userId"));
-//
-//					boolean flag = jdbcUtils.updateByPreparedStatement(
-//							updateSql, para);
-//
-//					if (!flag) {
-//						return null;
-//					} else {
-//						map.put("macAddress", macAddress);
-//						return map;
-//					}
-//				}else {
-//					return null;
-//				}
-//			}else {
-////				手机号为空，表明没有交费
-//				return null;
-//			}
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		} finally {
-//			jdbcUtils.releaseConn();
-//		}
-//		return null;
-//	}
-	
-	
+	// @Override
+	// public Map<String, Object> appLogin(String telephone, String macAddress)
+	// {
+	// // TODO Auto-generated method stub
+	// Map<String, Object> map = null;
+	// String sql = "select * from users where telephone=?  ";
+	// List<Object> params = new ArrayList<Object>();
+	// params.add(telephone);
+	// try {
+	// jdbcUtils.getConnection();
+	// map = jdbcUtils.findSimpleResult(sql, params);
+	// // 登陆成功 则将mac地址插入数据库中
+	// if (!map.isEmpty()) {
+	// // 如果 该手机号的 mac地址不为空并且与请求参数一致，返回正确
+	// if (map.get("macAddress") != null
+	// && !"".equals(map.get("macAddress")) &&
+	// map.get("macAddress").equals(macAddress)) {
+	// return map;
+	// } else if("0".equals(map.get("macAddress"))){
+	// String updateSql = " update users set macAddress=? where userId=?";
+	// List<Object> para = new ArrayList<Object>();
+	// para.add(macAddress);
+	// para.add(map.get("userId"));
+	//
+	// boolean flag = jdbcUtils.updateByPreparedStatement(
+	// updateSql, para);
+	//
+	// if (!flag) {
+	// return null;
+	// } else {
+	// map.put("macAddress", macAddress);
+	// return map;
+	// }
+	// }else {
+	// return null;
+	// }
+	// }else {
+	// // 手机号为空，表明没有交费
+	// return null;
+	// }
+	// } catch (Exception e) {
+	// // TODO: handle exception
+	// e.printStackTrace();
+	// } finally {
+	// jdbcUtils.releaseConn();
+	// }
+	// return null;
+	// }
+
 	@Override
 	public Map<String, Object> appLogin(String telephone, String macAddress) {
 		// TODO Auto-generated method stub
@@ -129,11 +131,12 @@ public class IosDao implements IosService {
 			map = jdbcUtils.findSimpleResult(sql, params);
 			// 登陆成功 则将mac地址插入数据库中
 			if (!map.isEmpty()) {
-//				如果 该手机号的 mac地址不为空并且与请求参数一致，返回正确
+				// 如果 该手机号的 mac地址不为空并且与请求参数一致，返回正确
 				if (map.get("macAddress") != null
-						&& !"".equals(map.get("macAddress")) && map.get("macAddress").equals(macAddress)) {
+						&& !"".equals(map.get("macAddress"))
+						&& map.get("macAddress").equals(macAddress)) {
 					return map;
-				} else if("0".equals(map.get("macAddress"))){
+				} else if ("0".equals(map.get("macAddress"))) {
 					String updateSql = " update users set macAddress=? where userId=?";
 					List<Object> para = new ArrayList<Object>();
 					para.add(macAddress);
@@ -150,13 +153,13 @@ public class IosDao implements IosService {
 						map.put("macAddress", macAddress);
 						return map;
 					}
-				}else {
+				} else {
 					map.clear();
 					map.put("msg", "nomatch");
 					return map;
 				}
-			}else {
-//				手机号为空，表明没有交费
+			} else {
+				// 手机号为空，表明没有交费
 				map = new HashMap<String, Object>();
 				map.put("msg", "notelephone");
 				return map;
@@ -169,8 +172,7 @@ public class IosDao implements IosService {
 		}
 		return null;
 	}
-	
-	
+
 	@Override
 	public Users editUser(String userid, Map<String, Object> paramMap) {
 		StringBuffer sqlBuffer = new StringBuffer("update users u set  ");
@@ -239,7 +241,6 @@ public class IosDao implements IosService {
 		return user;
 	}
 
-	
 	@Override
 	public boolean changePwd(String userName, String password) {
 		boolean flag = false;
@@ -383,8 +384,7 @@ public class IosDao implements IosService {
 	}
 
 	@Override
-	public List<Books> listBookLimit(String classId, String start,
-			String num) {
+	public List<Books> listBookLimit(String classId, int start, int end) {
 		List<Books> list = new ArrayList<Books>();
 		String sql = "select b.*,bc.categoryName,bcls.className from books b,bookcategory bc,bookclass bcls where"
 				+ " b.categoryId=bc.categoryId and b.classId=bcls.classId ";
@@ -395,26 +395,11 @@ public class IosDao implements IosService {
 			buffer.append(" and b.classId=? ");
 			params.add(Integer.parseInt(classId));
 		}
-		
+
 		buffer.append(" order by b.categoryId,b.classId,b.bookId limit ?,? ");
-		if(start!=null && !"".equals(start)){
-			try {
-				params.add(Integer.parseInt(start)>=0?Integer.parseInt(start):0);
-			} catch (Exception e) {
-				params.add(0);
-			}
-		}else {
-			params.add(0);
-		}
-		if(num!=null && !"".equals(num)){
-			try {
-				params.add(Integer.parseInt(num)>0?Integer.parseInt(num):10);
-			} catch (Exception e) {
-				params.add(10);
-			}
-		}else {
-			params.add(10);
-		}
+		params.add(start);
+		params.add(end);
+
 		try {
 			jdbcUtils.getConnection();
 			list = jdbcUtils.findMoreRefResult(buffer.toString(), params,
@@ -452,7 +437,6 @@ public class IosDao implements IosService {
 		return list;
 	}
 
-
 	@Override
 	public List<Books> searchBook(String keywords) {
 		List<Books> list = new ArrayList<Books>();
@@ -477,9 +461,9 @@ public class IosDao implements IosService {
 		}
 		return list;
 	}
-	
+
 	@Override
-	public List<Books> searchBookLimit(String keywords, String start, String num) {
+	public List<Books> searchBookLimit(String keywords, int start, int num) {
 		List<Books> list = new ArrayList<Books>();
 		String sql = "select b.*,bc.categoryName,bcls.className from books b,bookcategory bc,bookclass bcls where"
 				+ " b.categoryId=bc.categoryId and b.classId=bcls.classId ";
@@ -491,24 +475,8 @@ public class IosDao implements IosService {
 			params.add("%" + keywords + "%");
 		}
 		buffer.append(" order by b.categoryId,b.classId,b.bookId limit ?,? ");
-		if(start!=null && !"".equals(start)){
-			try {
-				params.add(Integer.parseInt(start)>=0?Integer.parseInt(start):0);
-			} catch (Exception e) {
-				params.add(0);
-			}
-		}else {
-			params.add(0);
-		}
-		if(num!=null && !"".equals(num)){
-			try {
-				params.add(Integer.parseInt(num)>0?Integer.parseInt(num):10);
-			} catch (Exception e) {
-				params.add(10);
-			}
-		}else {
-			params.add(10);
-		}
+		params.add(start);
+		params.add(num);
 		try {
 			jdbcUtils.getConnection();
 			list = jdbcUtils.findMoreRefResult(buffer.toString(), params,
@@ -520,8 +488,7 @@ public class IosDao implements IosService {
 		}
 		return list;
 	}
-	
-	
+
 	@Override
 	public List<FavouriteBook> listFavouritebook(String userId) {
 		List<FavouriteBook> list = new ArrayList<FavouriteBook>();
@@ -581,7 +548,8 @@ public class IosDao implements IosService {
 	}
 
 	@Override
-	public List<FavouriteBook> deleteFavouritebook(String userId, String favouriteId) {
+	public List<FavouriteBook> deleteFavouritebook(String userId,
+			String favouriteId) {
 		List<FavouriteBook> list = new ArrayList<FavouriteBook>();
 		// 先删除数据
 		String deleteSql = "delete from favouritebook where favouriteId="
@@ -609,11 +577,11 @@ public class IosDao implements IosService {
 
 	@Override
 	public List<Ad> listAd(String adPosition) {
-		String sql  = null;
+		String sql = null;
 		if (adPosition != null && !"".equals(adPosition)) {
 			sql = "select * from ad where adPosition= "
-				+ Integer.parseInt(adPosition);
-		}else {
+					+ Integer.parseInt(adPosition);
+		} else {
 			sql = "select * from ad ";
 		}
 		List<Ad> list = null;
@@ -627,18 +595,19 @@ public class IosDao implements IosService {
 		}
 		return list;
 	}
+
 	@Override
 	public void log(String telephone, String logType, String logInfo) {
-		
+
 		// 检查之前是否已经将这个文档加入到 收藏列表
 		String sql = "insert into operatorlog(telephone,logType,logInfo,logTs) values(?,?,?,?) ";
-		
+
 		List<Object> params = new ArrayList<Object>();
 		params.add(telephone);
 		params.add(logType);
 		params.add(logInfo);
 		params.add(new Date());
-				
+
 		try {
 			jdbcUtils.getConnection();
 			jdbcUtils.updateByPreparedStatement(sql, params);
@@ -648,5 +617,46 @@ public class IosDao implements IosService {
 			jdbcUtils.releaseConn();
 		}
 	}
-	
+
+	@Override
+	public int getListBookItemCount(String classId) {
+		// 检查之前是否已经将这个文档加入到 收藏列表
+		String sql = "select count(*) num from books where classId="
+				+ Integer.parseInt(classId);
+		try {
+			jdbcUtils.getConnection();
+			ResultSet rs = jdbcUtils.findResultSet(sql, null);
+			if (rs.next()) {
+				return rs.getInt("num");
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			jdbcUtils.releaseConn();
+		}
+	}
+
+	@Override
+	public int getSearchBookItemCount(String keywords) {
+		// 检查之前是否已经将这个文档加入到 收藏列表
+		String sql = "select count(*) num from books where bookName like '%"+keywords + "%'";
+		try {
+			jdbcUtils.getConnection();
+			ResultSet rs = jdbcUtils.findResultSet(sql, null);
+			if (rs.next()) {
+				return rs.getInt("num");
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			jdbcUtils.releaseConn();
+		}
+	}
+
 }

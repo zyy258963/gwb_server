@@ -2,9 +2,13 @@ package com.gwb.lee.util;
 
 import com.gwb.lee.vo.Header;
 
-public interface ConstantParams {
+public class ConstantParams {
 
 	public static final int PAGE_SIZE = 10;
+
+	public static final int PAGE_IOS_SIZE = 10;
+	public static int TOTAL_BOOK_NUM = 0;
+	public static int TOTAL_PAGE_NUM = 0;
 
 	public static final String RETURN_MSG = "respMsg";
 

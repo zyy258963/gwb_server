@@ -48,6 +48,7 @@ public class JdbcUtils {
 		try {
 			connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			if (connection==null) {
+				
 				System.out.println("获得服务器连接  失败！");
 			}
 			

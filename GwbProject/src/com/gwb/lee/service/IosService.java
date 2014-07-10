@@ -59,9 +59,13 @@ public interface IosService {
 
 	void log(String userId, String logSearch, String keywords);
 
-	List<Books> listBookLimit(String classId, String start, String num);
+	List<Books> listBookLimit(String classId, int start, int end);
 
-	List<Books> searchBookLimit(String temp, String start, String num);
+	List<Books> searchBookLimit(String temp, int start, int end);
+
+	int getListBookItemCount(String classId);
+
+	int getSearchBookItemCount(String keywords);
 
 
 	
