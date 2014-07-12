@@ -212,7 +212,6 @@ public class IosAction extends BaseAction {
 		ConstantParams.TOTAL_PAGE_NUM = pUtil.getPageCount();
 		// 已经进行分页之后的数据集合
 		List<Books> list = iosService.listBookLimit(classId, start, end);
-
 		if (list != null) {
 			return FastJsonUtil.getResultBookListJson(
 					ConstantParams.HTTP_STATUS_HEADER_SUCCESS, list);

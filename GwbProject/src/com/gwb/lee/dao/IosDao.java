@@ -621,7 +621,10 @@ public class IosDao implements IosService {
 	@Override
 	public int getListBookItemCount(String classId) {
 		// 检查之前是否已经将这个文档加入到 收藏列表
-		String sql = "select count(*) num from books where classId="
+//		select b.*,bc.categoryName,bcls.className from books b,bookcategory bc,bookclass bcls where"
+//				+ " b.categoryId=bc.categoryId and b.classId=bcls.classId 
+		String sql = "select count(*) num from books b,bookcategory bc,bookclass bcls where b.categoryId=bc.categoryId and b.classId=bcls.classId "
+				+ " and b.classId="
 				+ Integer.parseInt(classId);
 		try {
 			jdbcUtils.getConnection();
@@ -642,7 +645,10 @@ public class IosDao implements IosService {
 	@Override
 	public int getSearchBookItemCount(String keywords) {
 		// 检查之前是否已经将这个文档加入到 收藏列表
-		String sql = "select count(*) num from books where bookName like '%"+keywords + "%'";
+//		select b.*,bc.categoryName,bcls.className from books b,bookcategory bc,bookclass bcls where"
+//+ " b.categoryId=bc.categoryId and b.classId=bcls.classId 
+		String sql = "select count(*) num from books b,bookcategory bc,bookclass bcls where "
+				+ " b.categoryId=bc.categoryId and b.classId=bcls.classId and bookName like '%"+keywords + "%'";
 		try {
 			jdbcUtils.getConnection();
 			ResultSet rs = jdbcUtils.findResultSet(sql, null);
