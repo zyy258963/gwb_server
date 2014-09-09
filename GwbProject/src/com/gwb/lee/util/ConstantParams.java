@@ -48,6 +48,7 @@ public class ConstantParams {
 	public static final String LOG_ADD_FAVORITE = "收藏文档:";
 	public static final String LOG_DELETE_FAVORITE = "取消收藏文档:";
 	public static final String LOG_SEARCH = "搜索:";
+	public static final String LOG_OPEN_DOC = "打开文档:";
 	
 	public static final String FILE_SAVE_PATH = "/usr/local/tomcat/webapps/FileUpload/upload/books";
 	public static final String FILE_SAVE_IMAGE_PATH = "/usr/local/tomcat/webapps/FileUpload/upload/images";
@@ -55,8 +56,8 @@ public class ConstantParams {
 //	public static final String FILE_SAVE_PATH = "G:/workspace/javaee/FileUpload/WebContent/upload/books";
 //	public static final String FILE_SAVE_IMAGE_PATH = "G:/workspace/javaee/FileUpload/WebContent/upload/images";
 
-//	public static final String URL_IMAGE_PATH = "http://192.168.1.2:8080/FileUpload/upload/";
-	public static final String URL_IMAGE_PATH = "http://117.79.84.185:8080/FileUpload/upload/";
+//	public static final String URL_IMAGE_PATH = "http://192.168.1.2/FileUpload/upload/";
+	public static final String URL_IMAGE_PATH = "http://weebo.com.cn/FileUpload/upload/";
 	
 //	与手机端通信的 静态变量的定义
 

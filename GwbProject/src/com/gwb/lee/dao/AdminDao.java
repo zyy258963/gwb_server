@@ -402,7 +402,7 @@ public class AdminDao implements AdminService {
 			sql += " and u.userId = ? ";
 			param.add(Integer.parseInt(userId));
 		}
-		sql += " order by ol.logTs";
+		sql += " order by ol.logTs desc";
 		try {
 			jdbcUtils.getConnection();
 			list = jdbcUtils.findMoreRefResult(sql, param, OperatorLog.class);

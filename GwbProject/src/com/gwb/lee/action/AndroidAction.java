@@ -69,6 +69,8 @@ public class AndroidAction extends BaseAction {
 				rs = listFavourite(request, response);
 			} else if ("listAd".equals(type)) {
 				rs = listAd(request, response);
+			} else if ("log".equals(type)) {
+				log(request, response , ConstantParams.LOG_OPEN_DOC );
 			} 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,6 +92,10 @@ public class AndroidAction extends BaseAction {
 			androidService.log(telephone,ConstantParams.LOG_SEARCH,keywords);
 		}else if (ConstantParams.LOG_LOGIN.equals(logType)) {
 			androidService.log(telephone,ConstantParams.LOG_LOGIN,"");
+		}else if (ConstantParams.LOG_OPEN_DOC.equals(logType)) {
+			String temp = request.getParameter("keywords");
+			String keywords= URLDecoder.decode(temp, "UTF-8");
+			androidService.log(telephone,ConstantParams.LOG_OPEN_DOC,keywords);
 		}
 	}
 
